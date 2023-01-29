@@ -25,10 +25,12 @@ public class View {
         System.out.println("Apasa 1 pentru a afisa toate magazinele");
         System.out.println("Apasa 2 pentru a adauga un magazin");
         System.out.println("Apasa 3 pentru a sterge un magazin");
-        System.out.println("Apasa 4 pentru a afisa magazinele infiintate dupa anul 2000");
-        System.out.println("Apasa 5 pentru a afisa magazinele cu terminatia email-lului '.com'");
-        System.out.println("Apasa 6 pentru a afisa numarul de magazine care incep cu litera 'B'");
-        System.out.println("Apasa 7 pentru a afisa cate magazine au aceeasi culoare la logo, alaturi de culori");
+        System.out.println("Apasa 4 pentru a updata numarul de angajati");
+        System.out.println("Apasa 5 pentru a updata emailul firmei");
+        System.out.println("Apasa 6 pentru a afisa magazinele infiintate dupa anul 2000");
+        System.out.println("Apasa 7 pentru a afisa magazinele cu terminatia email-lului '.com'");
+        System.out.println("Apasa 8 pentru a afisa numarul de magazine care incep cu litera 'B'");
+        System.out.println("Apasa 9 pentru a afisa cate magazine au aceeasi culoare la logo, alaturi de culori");
 
     }
 
@@ -48,15 +50,21 @@ public class View {
                     remove();
                     break;
                 case 4:
-                    getMagazinByAnInfiintare();
+                    updateNumarAngajati();
                     break;
                 case 5:
-                    getMagazinByDescriere();
+                    updateEmail();
                     break;
                 case 6:
-                    getTotalMagazineCareIncepCu();
+                    getMagazinByAnInfiintare();
                     break;
                 case 7:
+                    getMagazinByDescriere();
+                    break;
+                case 8:
+                    getTotalMagazineCareIncepCu();
+                    break;
+                case 9:
                     getMagazinByCuloareLogo();
                 default:
                     run = false;
@@ -79,12 +87,12 @@ public class View {
         System.out.println("Introdu numele firmei:");
         String nume = scanner.nextLine();
         try {
-				Magazin magazin = Magazin.builder().anInfiintare(anInfiintare).culoareLogo(culaoreLogo).descriere(email).numarAngajati(numarAngajati).numarFiscal(numarFiscal).nume(nume).build();
-				magazinService.addMagazin(magazin);
-				System.out.println("Ai daugat un magazin cu succes!!");
-			}catch (ExceptieMagazinExistent e){
-				System.err.println(e.getMessage());
-			}
+            Magazin magazin = Magazin.builder().anInfiintare(anInfiintare).culoareLogo(culaoreLogo).descriere(email).numarAngajati(numarAngajati).numarFiscal(numarFiscal).nume(nume).build();
+            magazinService.addMagazin(magazin);
+            System.out.println("Ai daugat un magazin cu succes!!");
+        }catch (ExceptieMagazinExistent e){
+            System.err.println(e.getMessage());
+        }
 
     }
 
@@ -93,7 +101,7 @@ public class View {
         int numarFiscal = Integer.parseInt(scanner.nextLine());
         try{
             magazinService.removeMagazin(numarFiscal);
-
+            System.out.println("Ai sters un magazin cu succes!!");
         }catch (ExceptieMagazinNeexistent e){
             System.err.println(e.getMessage());
         }
@@ -136,6 +144,31 @@ public class View {
                 System.out.println(magazine[i]);
             }
         }catch (ExceptieMagazinNecorespunzator e){
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public void updateNumarAngajati(){
+        System.out.println("Introdu numarul fiscal al magazinului unde vrei sa faci modificarea: ");
+        int numarFiscal = Integer.parseInt(scanner.nextLine());
+        System.out.println("Introdu nou numar de angajati: ");
+        int numarAngajati = Integer.parseInt(scanner.nextLine());
+        try {
+            magazinService.updateNumarAngajati(numarAngajati, numarFiscal);
+            System.out.println("Ai updata magazinul cu succes!!");
+        }catch (ExceptieMagazinNeexistent e){
+            System.err.println(e.getMessage());
+        }
+    }
+    public void updateEmail(){
+        System.out.println("Introdu numarul fiscal al magazinului unde vrei sa faci modificarea: ");
+        int numarFiscal = Integer.parseInt(scanner.nextLine());
+        System.out.println("Intordu nou email:");
+        String email = scanner.nextLine();
+        try {
+            magazinService.updateEmail(email, numarFiscal);
+            System.out.println("Ai updata magazinul cu succes!!");
+        }catch (ExceptieMagazinNeexistent e){
             System.err.println(e.getMessage());
         }
     }

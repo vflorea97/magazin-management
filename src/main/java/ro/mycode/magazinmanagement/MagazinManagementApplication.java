@@ -10,6 +10,7 @@ import ro.mycode.magazinmanagement.Exceptii.ExceptieMagazinNeexistent;
 import ro.mycode.magazinmanagement.Model.Magazin;
 import ro.mycode.magazinmanagement.Repository.MagazinRepository;
 import ro.mycode.magazinmanagement.Service.MagazinService;
+import ro.mycode.magazinmanagement.View.View;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,10 +23,10 @@ public class MagazinManagementApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(MagazinRepository magazinRepository, MagazinService magazinService){
+	public CommandLineRunner commandLineRunner(MagazinRepository magazinRepository, MagazinService magazinService, View view){
 
 		return args -> {
-
+			view.play();
 //			List<Magazin> magazine = magazinRepository.getMagazinByAnInfiintare(2000).get();
 //			List<Magazin> magazine = magazinRepository.getMagazinByDescriere(".uk").get();
 //					for (Magazin m:magazine){
@@ -46,17 +47,19 @@ public class MagazinManagementApplication {
 //			magazinRepository.removeMagazinByNumarFiscal(40594);
 //			System.out.println(magazinRepository.findAll());
 
-//			magazinRepository.updateNumarAngajati(1000,51916); ????
+//			magazinRepository.updateNumarAngajati(1000,51916);
+//			magazinRepository.updateEmail("mailmail@gmail.com",51916);
+//			magazinService.afisareMagazine();
 
 
 
 //			try {
 //				Magazin magazin = Magazin.builder().anInfiintare(2000).culoareLogo("Orange").descriere("dppfood@gmail.com").numarAngajati(150).numarFiscal(23112).nume("BurgerBob").build();
 //				magazinService.addMagazin(magazin);
-//				System.out.println("Ai daugat un magazin cu succes!!");
+//				System.out.println("Ai adaugat un magazin cu succes!!");
 //			}catch (ExceptieMagazinExistent e){
 //				System.err.println(e.getMessage());
-//			} ?????
+//			}
 
 //			try {
 //				magazinService.removeMagazin(23112);

@@ -10,6 +10,7 @@ import ro.mycode.magazinmanagement.Exceptii.ExceptieMagazinNeexistent;
 import ro.mycode.magazinmanagement.Model.Magazin;
 import ro.mycode.magazinmanagement.Repository.MagazinRepository;
 import ro.mycode.magazinmanagement.Service.MagazinService;
+import ro.mycode.magazinmanagement.View.View;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,10 +23,10 @@ public class MagazinManagementApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(MagazinRepository magazinRepository, MagazinService magazinService){
+	public CommandLineRunner commandLineRunner(MagazinRepository magazinRepository, MagazinService magazinService, View view){
 
 		return args -> {
-
+			view.play();
 //			List<Magazin> magazine = magazinRepository.getMagazinByAnInfiintare(2000).get();
 //			List<Magazin> magazine = magazinRepository.getMagazinByDescriere(".uk").get();
 //					for (Magazin m:magazine){

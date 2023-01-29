@@ -93,7 +93,7 @@ public class View {
         int numarFiscal = Integer.parseInt(scanner.nextLine());
         try{
             magazinService.removeMagazin(numarFiscal);
-
+            System.out.println("Ai sters un magazin cu succes!!");
         }catch (ExceptieMagazinNeexistent e){
             System.err.println(e.getMessage());
         }

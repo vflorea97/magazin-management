@@ -18,7 +18,7 @@ public class Magazin implements Comparable<Magazin>{
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
 
-    private long id;
+    private Long id;
     private String nume;
     private String descriere;
     private String culoareLogo;

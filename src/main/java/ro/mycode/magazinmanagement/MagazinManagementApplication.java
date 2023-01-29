@@ -47,17 +47,19 @@ public class MagazinManagementApplication {
 //			magazinRepository.removeMagazinByNumarFiscal(40594);
 //			System.out.println(magazinRepository.findAll());
 
-//			magazinRepository.updateNumarAngajati(1000,51916); ????
+//			magazinRepository.updateNumarAngajati(1000,51916);
+//			magazinRepository.updateEmail("mailmail@gmail.com",51916);
+//			magazinService.afisareMagazine();
 
 
 
 //			try {
 //				Magazin magazin = Magazin.builder().anInfiintare(2000).culoareLogo("Orange").descriere("dppfood@gmail.com").numarAngajati(150).numarFiscal(23112).nume("BurgerBob").build();
 //				magazinService.addMagazin(magazin);
-//				System.out.println("Ai daugat un magazin cu succes!!");
+//				System.out.println("Ai adaugat un magazin cu succes!!");
 //			}catch (ExceptieMagazinExistent e){
 //				System.err.println(e.getMessage());
-//			} ?????
+//			}
 
 //			try {
 //				magazinService.removeMagazin(23112);

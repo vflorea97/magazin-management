@@ -1,6 +1,7 @@
 package ro.mycode.magazinmanagement.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ro.mycode.magazinmanagement.Model.Magazin;
@@ -30,8 +31,14 @@ public interface MagazinRepository extends JpaRepository<Magazin, Long> {
     Optional<Magazin> removeMagazinByNumarFiscal(int numarFiscal);
 
     @Transactional
+    @Modifying
     @Query("update Magazin m set m.numarAngajati = ?1 where m.numarFiscal = ?2")
     void updateNumarAngajati(int numarAngajati, int numarFiscal);
+
+    @Transactional
+    @Modifying
+    @Query("update Magazin m set m.descriere = ?1 where m.numarFiscal = ?2")
+    void updateEmail(String email, int numarFiscal);
 
 
 }

@@ -1,5 +1,6 @@
 package ro.mycode.magazinmanagement.Service;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import ro.mycode.magazinmanagement.Exceptii.ExceptieMagazinExistent;
 import ro.mycode.magazinmanagement.Exceptii.ExceptieMagazinNecorespunzator;
@@ -7,6 +8,7 @@ import ro.mycode.magazinmanagement.Exceptii.ExceptieMagazinNeexistent;
 import ro.mycode.magazinmanagement.Model.Magazin;
 import ro.mycode.magazinmanagement.Repository.MagazinRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,18 +25,41 @@ public class MagazinService {
         List<Magazin> magazine = magazinRepository.findAll();
         magazine.forEach(m-> System.out.println(m));
     }
+
+    @Transactional
     public void addMagazin(Magazin magazin) throws ExceptieMagazinExistent{
         Optional<Magazin> magazin1 = magazinRepository.findByNumarFiscal(magazin.getNumarFiscal());
-        if (magazin1.equals(Optional.empty())){
-            magazinRepository.save(magazin);
+        if (magazin1.isEmpty()){
+            magazinRepository.saveAndFlush(magazin);
         }else {
             throw new ExceptieMagazinExistent();
         }
     }
+    @Transactional
     public void removeMagazin(int numarFiscal) throws ExceptieMagazinNeexistent{
         Optional<Magazin> magazin = magazinRepository.findByNumarFiscal(numarFiscal);
         if (magazin.isPresent()){
             magazinRepository.removeMagazinByNumarFiscal(numarFiscal);
+        }else {
+            throw new ExceptieMagazinNeexistent();
+        }
+    }
+    @Transactional
+    @Modifying
+    public void updateNumarAngajati(int numarAngajati, int numarFiscal) throws ExceptieMagazinNeexistent{
+        Optional<Magazin> magazin = magazinRepository.findByNumarFiscal(numarFiscal);
+        if (magazin.isPresent()){
+            magazinRepository.updateNumarAngajati(numarAngajati, numarFiscal);
+        }else {
+            throw new ExceptieMagazinNeexistent();
+        }
+    }
+    @Transactional
+    @Modifying
+    public void updateEmail(String email, int numarFiscal) throws ExceptieMagazinNeexistent{
+        Optional<Magazin> magazin = magazinRepository.findByNumarFiscal(numarFiscal);
+        if (magazin.isPresent()){
+            magazinRepository.updateEmail(email, numarFiscal);
         }else {
             throw new ExceptieMagazinNeexistent();
         }
@@ -71,4 +96,5 @@ public class MagazinService {
             throw new ExceptieMagazinNecorespunzator();
         }
     }
+
 }

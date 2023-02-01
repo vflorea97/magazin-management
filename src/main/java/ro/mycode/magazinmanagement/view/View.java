@@ -1,11 +1,11 @@
-package ro.mycode.magazinmanagement.View;
+package ro.mycode.magazinmanagement.view;
 
 import org.springframework.stereotype.Component;
-import ro.mycode.magazinmanagement.Exceptii.ExceptieMagazinExistent;
-import ro.mycode.magazinmanagement.Exceptii.ExceptieMagazinNecorespunzator;
-import ro.mycode.magazinmanagement.Exceptii.ExceptieMagazinNeexistent;
-import ro.mycode.magazinmanagement.Model.Magazin;
-import ro.mycode.magazinmanagement.Service.MagazinService;
+import ro.mycode.magazinmanagement.exceptii.ExceptieMagazinExistent;
+import ro.mycode.magazinmanagement.exceptii.ExceptieMagazinNecorespunzator;
+import ro.mycode.magazinmanagement.exceptii.ExceptieMagazinNeexistent;
+import ro.mycode.magazinmanagement.model.Magazin;
+import ro.mycode.magazinmanagement.service.MagazinService;
 
 import java.util.List;
 import java.util.Scanner;

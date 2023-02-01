@@ -1,4 +1,4 @@
-package ro.mycode.magazinmanagement.Exceptii;
+package ro.mycode.magazinmanagement.exceptii;
 
 public class ExceptieMagazinNeexistent extends RuntimeException{
 

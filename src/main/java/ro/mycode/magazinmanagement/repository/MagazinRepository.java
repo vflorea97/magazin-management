@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface MagazinRepository extends JpaRepository<Magazin, Long> {
 
-    @Query("select m from Magazin m where m.anInfiintare > ?1")
+    @Query("select m from Magazin m where m.anInfiintare > ?1 ")
     Optional<List<Magazin>> getMagazinByAnInfiintare(int an);
 
     @Query("select m from Magazin m where m.descriere like %?1")
@@ -25,7 +25,18 @@ public interface MagazinRepository extends JpaRepository<Magazin, Long> {
     @Query("select count(m.nume),m.culoareLogo from Magazin m group by m.culoareLogo")
     String [] getMagazinByCuloareLogo();
 
+    @Query("select m from Magazin m where m.anInfiintare < ?1 and m.numarAngajati > ?2")
+    Optional<List<Magazin>> getMagazinByAnInfiintareAndNumarAngajati(int anInfiintare, int numarAngajati);
+
+    @Query("select m from Magazin m where m.descriere like %?1 and m.culoareLogo = ?2")
+    Optional<List<Magazin>> getMagazinByDescriereAndCuloareLogo(String terminatie, String culoare);
+
+    @Query("select count(m.numarAngajati) from Magazin m where m.numarAngajati between ?1 and ?2")
+    int getCountByNumarAngajati(int numarAngajatiMin, int numarAngajatiMax);
+
     Optional<Magazin> findByNumarFiscal(int numarFiscal);
+
+    Optional<Magazin> findById(long id);
 
     @Transactional
     Optional<Magazin> removeMagazinByNumarFiscal(int numarFiscal);

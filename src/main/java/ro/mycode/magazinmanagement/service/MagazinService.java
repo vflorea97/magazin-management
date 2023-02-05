@@ -32,6 +32,15 @@ public class MagazinService {
         return magazine;
     }
 
+    public Optional<Magazin> getMagazinById(long id) throws ExceptieMagazinNeexistent{
+        Optional<Magazin> magazin = magazinRepository.findById(id);
+        if (magazin.isPresent()){
+            return magazin;
+        }else {
+            throw new ExceptieMagazinNeexistent();
+        }
+    }
+
     @Transactional
     public void addMagazin(Magazin magazin) throws ExceptieMagazinExistent{
         Optional<Magazin> magazin1 = magazinRepository.findByNumarFiscal(magazin.getNumarFiscal());
@@ -100,6 +109,33 @@ public class MagazinService {
             return magazine;
         }else {
             throw new ExceptieMagazinNecorespunzator();
+        }
+    }
+
+    public List<Magazin> getMagazinByAnInfiintareAndNumarAngajati(int anInfiintare, int numarAgajati) throws ExceptieMagazinNecorespunzator{
+        List<Magazin> magazine = magazinRepository.getMagazinByAnInfiintareAndNumarAngajati(anInfiintare, numarAgajati).get();
+        if (magazine.size() > 0){
+            return magazine;
+        }else {
+            throw new ExceptieMagazinNecorespunzator();
+        }
+    }
+
+    public List<Magazin> getMagazinByDescriereAndCuloareLogo(String terminatie, String culoare) throws ExceptieMagazinNeexistent{
+        List<Magazin> magazine = magazinRepository.getMagazinByDescriereAndCuloareLogo(terminatie, culoare).get();
+        if (magazine.size() > 0){
+            return magazine;
+        }else {
+            throw new ExceptieMagazinNeexistent();
+        }
+    }
+
+    public int getCountByNumarAngajati(int numarAngajatiMin, int numarAngajatiMax) throws ExceptieMagazinNeexistent{
+        int numarMagazine = magazinRepository.getCountByNumarAngajati(numarAngajatiMin, numarAngajatiMax);
+        if (numarMagazine > 0){
+            return numarMagazine;
+        }else {
+            throw new ExceptieMagazinNeexistent();
         }
     }
 

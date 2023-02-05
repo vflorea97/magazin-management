@@ -4,9 +4,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import ro.mycode.magazinmanagement.model.Magazin;
 import ro.mycode.magazinmanagement.repository.MagazinRepository;
 import ro.mycode.magazinmanagement.service.MagazinService;
 import ro.mycode.magazinmanagement.view.View;
+
+import java.util.List;
 
 @SpringBootApplication
 public class MagazinManagementApplication {
@@ -20,10 +23,12 @@ public class MagazinManagementApplication {
 
 		return args -> {
 //			view.play();
+//			List<Magazin> magazine = magazinRepository.getMagazinByAnInfiintareAndNumarAngajati(2000, 100).get();
+//			view.play();
 //			List<Magazin	> magazine = magazinRepository.getMagazinByAnInfiintare(2000).get();
 //			List<Magazin> magazine = magazinRepository.getMagazinByDescriere(".uk").get();
 //					for (Magazin m:magazine){
-//				System.out.println(m.getNume() + m.getCuloareLogo());
+//				System.out.println(m);
 //			}
 //
 //			int numarMagazine = magazinRepository.getTotalMagazineCareIncepCu('B');

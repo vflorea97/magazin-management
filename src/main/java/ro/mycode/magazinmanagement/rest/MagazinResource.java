@@ -58,6 +58,4 @@ public class MagazinResource {
         return new ResponseEntity<>(numarMagazine, HttpStatus.OK);
     }
 
-
-
 }

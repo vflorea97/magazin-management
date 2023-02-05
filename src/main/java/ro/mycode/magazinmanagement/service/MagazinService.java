@@ -1,12 +1,12 @@
-package ro.mycode.magazinmanagement.Service;
+package ro.mycode.magazinmanagement.service;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
-import ro.mycode.magazinmanagement.Exceptii.ExceptieMagazinExistent;
-import ro.mycode.magazinmanagement.Exceptii.ExceptieMagazinNecorespunzator;
-import ro.mycode.magazinmanagement.Exceptii.ExceptieMagazinNeexistent;
-import ro.mycode.magazinmanagement.Model.Magazin;
-import ro.mycode.magazinmanagement.Repository.MagazinRepository;
+import ro.mycode.magazinmanagement.exceptii.ExceptieMagazinExistent;
+import ro.mycode.magazinmanagement.exceptii.ExceptieMagazinNecorespunzator;
+import ro.mycode.magazinmanagement.exceptii.ExceptieMagazinNeexistent;
+import ro.mycode.magazinmanagement.model.Magazin;
+import ro.mycode.magazinmanagement.repository.MagazinRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -24,6 +24,12 @@ public class MagazinService {
     public void afisareMagazine(){
         List<Magazin> magazine = magazinRepository.findAll();
         magazine.forEach(m-> System.out.println(m));
+    }
+
+    public List<Magazin> getAllMagazine(){
+        List<Magazin> magazine = magazinRepository.findAll();
+
+        return magazine;
     }
 
     @Transactional

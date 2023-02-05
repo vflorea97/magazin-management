@@ -4,16 +4,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import ro.mycode.magazinmanagement.Exceptii.ExceptieMagazinExistent;
-import ro.mycode.magazinmanagement.Exceptii.ExceptieMagazinNecorespunzator;
-import ro.mycode.magazinmanagement.Exceptii.ExceptieMagazinNeexistent;
-import ro.mycode.magazinmanagement.Model.Magazin;
-import ro.mycode.magazinmanagement.Repository.MagazinRepository;
-import ro.mycode.magazinmanagement.Service.MagazinService;
-import ro.mycode.magazinmanagement.View.View;
-
-import java.util.List;
-import java.util.Optional;
+import ro.mycode.magazinmanagement.repository.MagazinRepository;
+import ro.mycode.magazinmanagement.service.MagazinService;
+import ro.mycode.magazinmanagement.view.View;
 
 @SpringBootApplication
 public class MagazinManagementApplication {
@@ -26,8 +19,8 @@ public class MagazinManagementApplication {
 	public CommandLineRunner commandLineRunner(MagazinRepository magazinRepository, MagazinService magazinService, View view){
 
 		return args -> {
-			view.play();
-//			List<Magazin> magazine = magazinRepository.getMagazinByAnInfiintare(2000).get();
+//			view.play();
+//			List<Magazin	> magazine = magazinRepository.getMagazinByAnInfiintare(2000).get();
 //			List<Magazin> magazine = magazinRepository.getMagazinByDescriere(".uk").get();
 //					for (Magazin m:magazine){
 //				System.out.println(m.getNume() + m.getCuloareLogo());

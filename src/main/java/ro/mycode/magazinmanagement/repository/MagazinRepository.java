@@ -1,10 +1,10 @@
-package ro.mycode.magazinmanagement.Repository;
+package ro.mycode.magazinmanagement.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import ro.mycode.magazinmanagement.Model.Magazin;
+import ro.mycode.magazinmanagement.model.Magazin;
 
 import javax.transaction.Transactional;
 import java.util.List;

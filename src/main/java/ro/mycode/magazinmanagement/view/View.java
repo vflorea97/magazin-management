@@ -1,11 +1,11 @@
-package ro.mycode.magazinmanagement.View;
+package ro.mycode.magazinmanagement.view;
 
 import org.springframework.stereotype.Component;
-import ro.mycode.magazinmanagement.Exceptii.ExceptieMagazinExistent;
-import ro.mycode.magazinmanagement.Exceptii.ExceptieMagazinNecorespunzator;
-import ro.mycode.magazinmanagement.Exceptii.ExceptieMagazinNeexistent;
-import ro.mycode.magazinmanagement.Model.Magazin;
-import ro.mycode.magazinmanagement.Service.MagazinService;
+import ro.mycode.magazinmanagement.exceptii.ExceptieMagazinExistent;
+import ro.mycode.magazinmanagement.exceptii.ExceptieMagazinNecorespunzator;
+import ro.mycode.magazinmanagement.exceptii.ExceptieMagazinNeexistent;
+import ro.mycode.magazinmanagement.model.Magazin;
+import ro.mycode.magazinmanagement.service.MagazinService;
 
 import java.util.List;
 import java.util.Scanner;
@@ -25,13 +25,17 @@ public class View {
         System.out.println("Apasa 1 pentru a afisa toate magazinele");
         System.out.println("Apasa 2 pentru a adauga un magazin");
         System.out.println("Apasa 3 pentru a sterge un magazin");
-        System.out.println("Apasa 4 pentru a updata numarul de angajati");
-        System.out.println("Apasa 5 pentru a updata emailul firmei");
-        System.out.println("Apasa 6 pentru a afisa magazinele infiintate dupa anul 2000");
-        System.out.println("Apasa 7 pentru a afisa magazinele cu terminatia email-lului '.com'");
-        System.out.println("Apasa 8 pentru a afisa numarul de magazine care incep cu litera 'B'");
-        System.out.println("Apasa 9 pentru a afisa cate magazine au aceeasi culoare la logo, alaturi de culori");
+        System.out.println("Apasa 4 pentru a updata magazinul");
+        System.out.println("Apasa 5 pentru a afisa magazinele infiintate dupa anul 2000");
+        System.out.println("Apasa 6 pentru a afisa magazinele cu terminatia email-lului '.com'");
+        System.out.println("Apasa 7 pentru a afisa numarul de magazine care incep cu litera 'B'");
+        System.out.println("Apasa 8 pentru a afisa cate magazine au aceeasi culoare la logo, alaturi de culori");
 
+    }
+    public void meniuUpdate(){
+        System.out.println("Apasa 1 pentru a updata numarul de angajati");
+        System.out.println("Apasa 2 pentru a updata email-ul firmei");
+        System.out.println("Apasa 0 pentru a te intoarce la meniul principal");
     }
 
     public void play() {
@@ -50,21 +54,18 @@ public class View {
                     remove();
                     break;
                 case 4:
-                    updateNumarAngajati();
+                    playUpdate();
                     break;
                 case 5:
-                    updateEmail();
-                    break;
-                case 6:
                     getMagazinByAnInfiintare();
                     break;
-                case 7:
+                case 6:
                     getMagazinByDescriere();
                     break;
-                case 8:
+                case 7:
                     getTotalMagazineCareIncepCu();
                     break;
-                case 9:
+                case 8:
                     getMagazinByCuloareLogo();
                 default:
                     run = false;
@@ -170,6 +171,28 @@ public class View {
             System.out.println("Ai updata magazinul cu succes!!");
         }catch (ExceptieMagazinNeexistent e){
             System.err.println(e.getMessage());
+        }
+    }
+    public void playUpdate(){
+        boolean run = true;
+        meniuUpdate();
+        while (run){
+            int buton = Integer.parseInt(scanner.nextLine());
+            switch (buton){
+                case 1:
+                    updateNumarAngajati();
+                    break;
+                case 2:
+                    updateEmail();
+                    break;
+                case 0:
+                    play();
+                    run = false;
+                    break;
+                default:
+                    meniuUpdate();
+                    break;
+            }
         }
     }
 }

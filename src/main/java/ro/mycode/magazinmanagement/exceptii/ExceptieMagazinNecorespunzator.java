@@ -1,4 +1,4 @@
-package ro.mycode.magazinmanagement.Exceptii;
+package ro.mycode.magazinmanagement.exceptii;
 
 public class ExceptieMagazinNecorespunzator extends RuntimeException{
 

@@ -1,4 +1,4 @@
-package ro.mycode.magazinmanagement.Model;
+package ro.mycode.magazinmanagement.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -3,12 +3,13 @@ package ro.mycode.magazinmanagement.rest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ro.mycode.magazinmanagement.model.Magazin;
 import ro.mycode.magazinmanagement.service.MagazinService;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @Slf4j
@@ -57,5 +58,48 @@ public class MagazinResource {
         String [] numarMagazine = magazinService.getMagazinByCuloareLogo();
         return new ResponseEntity<>(numarMagazine, HttpStatus.OK);
     }
+
+    @GetMapping("api/v1/magazine/getById/{id}")
+    public ResponseEntity<Optional<Magazin>> getMagazinById(@PathVariable long id){
+        log.info("REST request to get magazin by id ={}",id);
+        Optional<Magazin> magazin = magazinService.getMagazinById(id);
+        return new ResponseEntity<>(magazin ,HttpStatus.OK);
+    }
+
+    @GetMapping("api/v1/magazine/getMagazinByAnInfiintareAndNumarAngajati")
+    public ResponseEntity<List<Magazin>>getAllMagazine(@RequestParam int anInfiintare ,@RequestParam int nrAngajati){
+        log.info("REST request to get all magazine by an infiintare and numarAngajati");
+        List<Magazin> magazine = magazinService.getMagazinByAnInfiintareAndNumarAngajati(anInfiintare, nrAngajati);
+        return new ResponseEntity<>(magazine, HttpStatus.OK);
+    }
+
+    @GetMapping("api/v1/magazine/getMagazinByDescriereAndCuloareLogo")
+    public ResponseEntity<List<Magazin>>getMagazinByDescriereAndCuloareLogo(@RequestParam String terminatie, @RequestParam String culoare){
+        log.info("REST request to get all magazine by domain and color");
+        List<Magazin> magazine = magazinService.getMagazinByDescriereAndCuloareLogo(terminatie, culoare);
+        return new ResponseEntity<>(magazine, HttpStatus.OK);
+    }
+
+    @GetMapping("api/v1/magazine/getCountByNumarAngajati")
+    public ResponseEntity<Integer> getCountByNumarAngajati(@RequestParam int numarAngajatiMin, @RequestParam int numarAngajatiMax){
+        log.info("REST request to get number of magazine with numar angajati intre min and max");
+        int magazine = magazinService.getCountByNumarAngajati(numarAngajatiMin, numarAngajatiMax);
+        return new ResponseEntity<>(magazine, HttpStatus.OK);
+    }
+
+    @PostMapping("api/v1/add")
+
+    public ResponseEntity<Magazin> addMagazin(@RequestBody  Magazin magazin){
+
+        log.info("Rest api to add a new magain {}",magazin);
+        this.magazinService.addMagazin(magazin);
+
+        return new ResponseEntity<>(magazin,HttpStatus.CREATED);
+    }
+
+
+
+
+
 
 }

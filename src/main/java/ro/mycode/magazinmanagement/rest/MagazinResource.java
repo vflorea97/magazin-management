@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ro.mycode.magazinmanagement.dto.MagazinDTO;
 import ro.mycode.magazinmanagement.model.Magazin;
 import ro.mycode.magazinmanagement.service.MagazinService;
 
@@ -97,18 +98,28 @@ public class MagazinResource {
     }
 
     @DeleteMapping("api/v1/magazin/remove")
-    public ResponseEntity<String> removeMagazin(@Valid @RequestParam int numarFiscal){
+    public ResponseEntity<String> removeMagazin( @RequestParam int numarFiscal){
         log.info("REST request to remove one magazine by numarFisca");
         magazinService.removeMagazin(numarFiscal);
         return new ResponseEntity<>("Ai sters cu succes",HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("api/v1/magazin/removeByNumarAngajati")
-    public ResponseEntity<String> removeMagazinByNumarAngajati(@Valid @RequestParam int numarAngajati){
+    public ResponseEntity<String> removeMagazinByNumarAngajati( @RequestParam int numarAngajati){
         log.info("REST api request to remove all magazine by numarAngajati");
         magazinService.removeByNumarAngajati(numarAngajati);
         return new ResponseEntity<>("Ai sters magazinele cu numar de angajati sub " + numarAngajati + " cu succes!!", HttpStatus.ACCEPTED);
 
-
     }
+
+    @PutMapping("api/v1/magazin/updateMagazin")
+    public ResponseEntity<String> updateMagazin(@Valid @RequestBody MagazinDTO magazinDTO){
+        log.info("REST request to update magazin {}",magazinDTO);
+
+
+        magazinService.updateMagazin(magazinDTO);
+
+        return new ResponseEntity<>("Ai updata atributul cu succes", HttpStatus.OK);
+    }
+
 }

@@ -4,10 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ro.mycode.magazinmanagement.dto.MagazinDTO;
 import ro.mycode.magazinmanagement.model.Magazin;
 import ro.mycode.magazinmanagement.service.MagazinService;
 
-import javax.websocket.server.PathParam;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -88,8 +89,7 @@ public class MagazinResource {
     }
 
     @PostMapping("api/v1/add")
-
-    public ResponseEntity<Magazin> addMagazin(@RequestBody  Magazin magazin){
+    public ResponseEntity<Magazin> addMagazin(@Valid @RequestBody  Magazin magazin){
 
         log.info("Rest api to add a new magain {}",magazin);
         this.magazinService.addMagazin(magazin);
@@ -97,9 +97,29 @@ public class MagazinResource {
         return new ResponseEntity<>(magazin,HttpStatus.CREATED);
     }
 
+    @DeleteMapping("api/v1/magazin/remove")
+    public ResponseEntity<String> removeMagazin( @RequestParam int numarFiscal){
+        log.info("REST request to remove one magazine by numarFisca");
+        magazinService.removeMagazin(numarFiscal);
+        return new ResponseEntity<>("Ai sters cu succes",HttpStatus.ACCEPTED);
+    }
+
+    @DeleteMapping("api/v1/magazin/removeByNumarAngajati")
+    public ResponseEntity<String> removeMagazinByNumarAngajati( @RequestParam int numarAngajati){
+        log.info("REST api request to remove all magazine by numarAngajati");
+        magazinService.removeByNumarAngajati(numarAngajati);
+        return new ResponseEntity<>("Ai sters magazinele cu numar de angajati sub " + numarAngajati + " cu succes!!", HttpStatus.ACCEPTED);
+
+    }
+
+    @PutMapping("api/v1/magazin/updateMagazin")
+    public ResponseEntity<String> updateMagazin(@Valid @RequestBody MagazinDTO magazinDTO){
+        log.info("REST request to update magazin {}",magazinDTO);
 
 
+        magazinService.updateMagazin(magazinDTO);
 
-
+        return new ResponseEntity<>("Ai updata atributul cu succes", HttpStatus.OK);
+    }
 
 }

@@ -2,6 +2,7 @@ package ro.mycode.magazinmanagement.service;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
+import ro.mycode.magazinmanagement.dto.MagazinDTO;
 import ro.mycode.magazinmanagement.exceptii.ExceptieMagazinExistent;
 import ro.mycode.magazinmanagement.exceptii.ExceptieMagazinNecorespunzator;
 import ro.mycode.magazinmanagement.exceptii.ExceptieMagazinNeexistent;
@@ -40,6 +41,8 @@ public class MagazinService {
             throw new ExceptieMagazinNeexistent();
         }
     }
+
+
 
     @Transactional
     public void addMagazin(Magazin magazin) throws ExceptieMagazinExistent{
@@ -137,6 +140,44 @@ public class MagazinService {
         }else {
             throw new ExceptieMagazinNeexistent();
         }
+    }
+
+    @Transactional
+    public void removeByNumarAngajati(int numarAngajati) throws ExceptieMagazinNecorespunzator{
+        List<Magazin> magazins = magazinRepository.getMagazinByNumarAngajati(numarAngajati).get();
+        if (magazins.size() > 0){
+            for (int i = 0; i < magazins.size(); i++){
+                removeMagazin(magazins.get(i).getNumarFiscal());
+            }
+        }else {
+            throw new ExceptieMagazinNecorespunzator();
+        }
+    }
+
+    @Transactional
+    @Modifying
+    public void updateMagazin(MagazinDTO magazinDTO) throws ExceptieMagazinNeexistent{
+        Optional<Magazin> magazin = magazinRepository.findById(magazinDTO.getId());
+        if (magazin.isPresent()){
+            Magazin m=magazin.get();
+
+            if(magazinDTO.getNume().equals("")==false){
+
+
+                m.setNume(magazinDTO.getNume());
+            }
+            if (magazinDTO.getNumarAngajati() != 0){
+                m.setNumarAngajati(magazinDTO.getNumarAngajati());
+            }
+            if (!magazinDTO.getDescriere().equals("")){
+                m.setDescriere(magazinDTO.getDescriere());
+            }
+            if (!magazinDTO.getCuloareLogo().equals("")){
+                m.setCuloareLogo(magazinDTO.getCuloareLogo());
+            }
+            magazinRepository.saveAndFlush(m);
+        }
+
     }
 
 }

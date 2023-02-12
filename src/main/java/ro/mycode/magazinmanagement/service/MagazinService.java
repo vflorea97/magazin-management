@@ -139,4 +139,16 @@ public class MagazinService {
         }
     }
 
+    @Transactional
+    public void removeByNumarAngajati(int numarAngajati) throws ExceptieMagazinNecorespunzator{
+        List<Magazin> magazins = magazinRepository.getMagazinByNumarAngajati(numarAngajati).get();
+        if (magazins.size() > 0){
+            for (int i = 0; i < magazins.size(); i++){
+                removeMagazin(magazins.get(i).getNumarFiscal());
+            }
+        }else {
+            throw new ExceptieMagazinNecorespunzator();
+        }
+    }
+
 }

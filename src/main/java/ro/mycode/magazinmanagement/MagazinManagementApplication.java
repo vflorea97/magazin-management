@@ -22,6 +22,8 @@ public class MagazinManagementApplication {
 	public CommandLineRunner commandLineRunner(MagazinRepository magazinRepository, MagazinService magazinService, View view){
 
 		return args -> {
+//			magazinService.removeByNumarAngajati(200);
+//			magazinService.afisareMagazine();
 //			view.play();
 //			List<Magazin> magazine = magazinRepository.getMagazinByAnInfiintareAndNumarAngajati(2000, 100).get();
 //			view.play();

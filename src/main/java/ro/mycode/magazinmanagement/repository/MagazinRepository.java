@@ -34,6 +34,9 @@ public interface MagazinRepository extends JpaRepository<Magazin, Long> {
     @Query("select count(m.numarAngajati) from Magazin m where m.numarAngajati between ?1 and ?2")
     int getCountByNumarAngajati(int numarAngajatiMin, int numarAngajatiMax);
 
+    @Query("select m from Magazin m where m.numarAngajati < ?1")
+    Optional<List<Magazin>> getMagazinByNumarAngajati(int numarAngajati);
+
     Optional<Magazin> findByNumarFiscal(int numarFiscal);
 
     Optional<Magazin> findById(long id);

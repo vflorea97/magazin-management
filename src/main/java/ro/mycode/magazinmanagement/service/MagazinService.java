@@ -3,6 +3,7 @@ package ro.mycode.magazinmanagement.service;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import ro.mycode.magazinmanagement.dto.MagazinDTO;
+import ro.mycode.magazinmanagement.exceptii.ExceptieMagazinDBEmpty;
 import ro.mycode.magazinmanagement.exceptii.ExceptieMagazinExistent;
 import ro.mycode.magazinmanagement.exceptii.ExceptieMagazinNecorespunzator;
 import ro.mycode.magazinmanagement.exceptii.ExceptieMagazinNeexistent;
@@ -27,10 +28,13 @@ public class MagazinService {
         magazine.forEach(m-> System.out.println(m));
     }
 
-    public List<Magazin> getAllMagazine(){
+    public List<Magazin> getAllMagazine() throws ExceptieMagazinDBEmpty {
         List<Magazin> magazine = magazinRepository.findAll();
-
-        return magazine;
+        if (magazine.size() > 0) {
+            return magazine;
+        }else {
+            throw new ExceptieMagazinDBEmpty();
+        }
     }
 
     public Optional<Magazin> getMagazinById(long id) throws ExceptieMagazinNeexistent{
@@ -38,6 +42,15 @@ public class MagazinService {
         if (magazin.isPresent()){
             return magazin;
         }else {
+            throw new ExceptieMagazinNeexistent();
+        }
+    }
+
+    public Optional<Magazin> getMagazinByNumarFiscal(int numarFiscal) throws ExceptieMagazinNeexistent{
+        Optional<Magazin> magazin = magazinRepository.findByNumarFiscal(numarFiscal);
+        if (magazin.isPresent()){
+            return magazin;
+        }else{
             throw new ExceptieMagazinNeexistent();
         }
     }
@@ -161,9 +174,7 @@ public class MagazinService {
         if (magazin.isPresent()){
             Magazin m=magazin.get();
 
-            if(magazinDTO.getNume().equals("")==false){
-
-
+            if(!magazinDTO.getNume().equals("")){
                 m.setNume(magazinDTO.getNume());
             }
             if (magazinDTO.getNumarAngajati() != 0){
@@ -176,6 +187,8 @@ public class MagazinService {
                 m.setCuloareLogo(magazinDTO.getCuloareLogo());
             }
             magazinRepository.saveAndFlush(m);
+        }else{
+            throw new ExceptieMagazinNeexistent();
         }
 
     }

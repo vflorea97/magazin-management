@@ -46,6 +46,15 @@ public class MagazinService {
         }
     }
 
+    public Optional<Magazin> getMagazinByNumarFiscal(int numarFiscal) throws ExceptieMagazinNeexistent{
+        Optional<Magazin> magazin = magazinRepository.findByNumarFiscal(numarFiscal);
+        if (magazin.isPresent()){
+            return magazin;
+        }else{
+            throw new ExceptieMagazinNeexistent();
+        }
+    }
+
 
 
     @Transactional
